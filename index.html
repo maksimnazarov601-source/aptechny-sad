@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Аптечный сад — травяные сборы и чаи</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F1E3; --bg-2:#FBF8EE; --ink:#24301E; --ink-soft:#586352;
+    --forest:#1E2B1A; --sage:#77896B; --ochre:#9C6B30; --ochre-dark:#7C5325;
+    --line:#DCD3B8; --radius:4px;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#161C13; --bg-2:#1D2418; --ink:#EDE7D6; --ink-soft:#BEC2AE;
+      --forest:#0F150C; --sage:#8CA07D; --ochre:#C79256; --ochre-dark:#E0A868; --line:#33402A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#161C13; --bg-2:#1D2418; --ink:#EDE7D6; --ink-soft:#BEC2AE;
+    --forest:#0F150C; --sage:#8CA07D; --ochre:#C79256; --ochre-dark:#E0A868; --line:#33402A;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Manrope',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:600; margin:0 0 .4em; color:var(--ink);}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  section{padding:88px 0;}
+  :focus-visible{outline:2px solid var(--ochre); outline-offset:3px;}
+
+  header{position:sticky; top:0; top:env(safe-area-inset-top,0px); z-index:20; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1120px; margin:0 auto;}
+  .logo{font-family:'Fraunces',serif; font-style:italic; font-size:1.3rem; letter-spacing:.01em;}
+  .logo b{font-style:normal; font-weight:600;}
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0;}
+  nav a{text-decoration:none; font-size:.95rem; color:var(--ink-soft);}
+  nav a:hover{color:var(--ochre-dark);}
+  .cart-btn{position:relative; background:none; border:1px solid var(--line); border-radius:var(--radius); padding:8px 16px; font-family:inherit; font-size:.9rem; cursor:pointer; color:var(--ink);}
+  .cart-btn .count{position:absolute; top:-8px; right:-8px; background:var(--ochre); color:#fff; font-size:.7rem; min-width:18px; height:18px; border-radius:9px; display:flex; align-items:center; justify-content:center; padding:0 4px;}
+  .menu-toggle{display:none;}
+
+  .hero{background:var(--forest); color:#EFE9D6; padding:90px 0 70px; overflow:hidden; position:relative;}
+  .hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center;}
+  .eyebrow{color:var(--sage); font-size:.9rem; margin-bottom:14px;}
+  .hero h1{color:#F7F2E2; font-size:clamp(2.1rem,4vw,3.1rem); line-height:1.12; max-width:14ch;}
+  .hero p{color:#CBD0BE; max-width:46ch; font-size:1.05rem;}
+  .hero-cta{margin-top:30px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{display:inline-block; background:var(--ochre); color:#fff; text-decoration:none; padding:13px 26px; border-radius:var(--radius); font-weight:600; border:none; cursor:pointer; font-size:.98rem; font-family:inherit;}
+  .btn:hover{background:var(--ochre-dark);}
+  .btn.ghost{background:transparent; border:1px solid #6C7960; color:#EFE9D6;}
+  .btn.ghost:hover{border-color:#EFE9D6;}
+  .leaf-art{width:100%; aspect-ratio:1/1;}
+
+  .badges{display:flex; gap:32px; margin-top:52px; flex-wrap:wrap; color:#AEB6A0; font-size:.85rem;}
+  .badges span{border-top:1px solid #3A4530; padding-top:10px; display:block; min-width:140px;}
+  .badges strong{display:block; color:#F0EAD8; font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600;}
+
+  .benefits .wrap{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .b-card{background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius); padding:26px 22px;}
+  .b-card .ico{width:34px; height:34px; margin-bottom:14px; color:var(--sage);}
+  .b-card h3{font-size:1.05rem;}
+  .b-card p{color:var(--ink-soft); font-size:.92rem; margin:0;}
+
+  .section-head{max-width:60ch; margin-bottom:44px;}
+  .section-head .eyebrow{color:var(--ochre-dark);}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);}
+  .section-head p{color:var(--ink-soft);}
+
+  .picker{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:32px; display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center;}
+  .picker label{display:block; font-size:.9rem; color:var(--ink-soft); margin-bottom:8px;}
+  .picker select{width:100%; padding:12px 14px; border-radius:var(--radius); border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:1rem;}
+  .picker-result{border-left:2px solid var(--ochre); padding-left:20px; min-height:70px;}
+  .picker-result .r-name{font-family:'Fraunces',serif; font-size:1.25rem;}
+  .picker-result .r-desc{color:var(--ink-soft); font-size:.92rem;}
+  .picker-result.empty .r-desc{color:var(--ink-soft); font-style:italic;}
+
+  .catalog{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .card{background:var(--bg); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:flex; flex-direction:column;}
+  .card .art{aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;}
+  .card .art svg{width:56%; height:56%;}
+  .card-body{padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .card h3{font-size:1.08rem; margin:0;}
+  .card .tag{font-size:.78rem; color:var(--sage); font-weight:600;}
+  .card p{color:var(--ink-soft); font-size:.88rem; margin:0; flex:1;}
+  .card-foot{display:flex; align-items:center; justify-content:space-between; margin-top:6px;}
+  .price{font-family:'Fraunces',serif; font-size:1.15rem;}
+  .add-btn{background:none; border:1px solid var(--ochre); color:var(--ochre-dark); border-radius:var(--radius); padding:8px 14px; font-size:.85rem; font-family:inherit; cursor:pointer; font-weight:600;}
+  .add-btn:hover{background:var(--ochre); color:#fff;}
+  .add-btn.added{background:var(--sage); border-color:var(--sage); color:#fff;}
+
+  .steps{counter-reset:step;}
+  .steps ol{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .steps li{counter-increment:step; border-top:2px solid var(--line); padding-top:16px;}
+  .steps li::before{content:counter(step); font-family:'Fraunces',serif; font-size:1.6rem; color:var(--ochre-dark); display:block; margin-bottom:8px;}
+  .steps h3{font-size:1rem; margin-bottom:4px;}
+  .steps p{color:var(--ink-soft); font-size:.9rem; margin:0;}
+
+  .reviews .wrap{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  blockquote{margin:0; background:var(--bg-2); border:1px solid var(--line); border-radius:6px; padding:24px; font-size:.95rem;}
+  blockquote p{margin:0 0 14px; color:var(--ink);}
+  blockquote cite{font-style:normal; color:var(--ink-soft); font-size:.85rem;}
+
+  footer{background:var(--forest); color:#CBD0BE; padding:64px 0 calc(28px + env(safe-area-inset-bottom,0px));}
+  footer .wrap{display:grid; grid-template-columns:1.2fr 1fr; gap:48px;}
+  footer h2{color:#F0EAD8; font-size:1.5rem; max-width:16ch;}
+  footer p{color:#A9B097; max-width:42ch;}
+  .subscribe{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+  .subscribe input{flex:1; min-width:200px; padding:12px 14px; border-radius:var(--radius); border:1px solid #3A4530; background:#1B2415; color:#EFE9D6; font-family:inherit;}
+  .sub-msg{margin-top:12px; font-size:.85rem; min-height:1.2em; color:var(--sage);}
+  .foot-contacts{border-top:1px solid #34402A; padding-top:20px; font-size:.9rem;}
+  .foot-contacts div{margin-bottom:6px;}
+  .foot-bottom{margin-top:40px; padding-top:20px; border-top:1px solid #2B3623; font-size:.8rem; color:#7C8569; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{order:-1; max-width:220px; margin:0 auto;}
+    .benefits .wrap, .grid, .steps ol, .reviews .wrap{grid-template-columns:repeat(2,1fr);}
+    .picker{grid-template-columns:1fr;}
+    footer .wrap{grid-template-columns:1fr;}
+    nav ul{display:none;}
+  }
+  @media (max-width:520px){
+    .benefits .wrap, .grid, .steps ol, .reviews .wrap{grid-template-columns:1fr;}
+    section{padding:56px 0;}
+  }
+
+  /* ---- Корзина / оформление заказа ---- */
+  .modal-overlay{position:fixed; inset:0; background:rgba(15,18,10,.55); display:flex; align-items:center; justify-content:center; padding:20px; z-index:100;}
+  .modal-overlay[hidden]{display:none;}
+  .modal{background:var(--bg-2); border-radius:8px; width:100%; max-width:440px; max-height:88vh; overflow-y:auto; padding:28px 26px; position:relative;}
+  .modal[hidden]{display:none;}
+  .modal-close{position:absolute; top:14px; right:14px; background:none; border:none; font-size:1.4rem; line-height:1; cursor:pointer; color:var(--ink-soft);}
+  .modal h2{font-size:1.3rem; margin-bottom:16px;}
+  .cart-row{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line);}
+  .cart-row .ci-name{font-weight:600; font-size:.92rem;}
+  .cart-row .ci-sub{color:var(--ink-soft); font-size:.8rem;}
+  .qty-ctrl{display:flex; align-items:center; gap:8px;}
+  .qty-ctrl button{width:26px; height:26px; border-radius:50%; border:1px solid var(--line); background:var(--bg); cursor:pointer; font-size:1rem; line-height:1;}
+  .cart-total{display:flex; justify-content:space-between; font-family:'Fraunces',serif; font-size:1.15rem; margin:16px 0 20px;}
+  .modal form label{display:block; font-size:.85rem; color:var(--ink-soft); margin-bottom:14px;}
+  .modal form input{width:100%; margin-top:6px; padding:11px 12px; border-radius:var(--radius); border:1px solid var(--line); background:var(--bg); color:var(--ink); font-family:inherit; font-size:.95rem;}
+  .card-row{display:flex; gap:12px;}
+  .card-row label{flex:1;}
+  .checkbox-row{display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--ink-soft);}
+  .checkbox-row input{width:auto; margin:0;}
+  .pay-methods{display:flex; gap:10px; margin-bottom:18px;}
+  .pay-method{flex:1; padding:12px; border-radius:var(--radius); border:1px solid var(--line); background:var(--bg); font-family:inherit; font-size:.9rem; cursor:pointer;}
+  .pay-method.active{border-color:var(--ochre); color:var(--ochre-dark); font-weight:600;}
+  .quick-pay{width:100%; text-align:left; padding:12px 14px; border-radius:var(--radius); border:1px dashed var(--sage); background:none; color:var(--ink); font-family:inherit; font-size:.9rem; cursor:pointer; margin-bottom:16px;}
+  .qr-fake{width:120px; height:120px; margin:14px auto; display:block;}
+  .empty-note{color:var(--ink-soft); font-size:.9rem; padding:10px 0 20px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><b>Аптечный</b> сад</div>
+    <nav><ul>
+      <li><a href="#catalog">Каталог</a></li>
+      <li><a href="#picker">Подбор сбора</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul></nav>
+    <button class="cart-btn" id="cartBtn" aria-label="Корзина">Корзина <span class="count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Травяные сборы ручной фасовки</div>
+      <h1>Чай, который собирают травники, а не конвейер</h1>
+      <p>Мы сушим и смешиваем травы небольшими партиями по рецептам народной фитотерапии — для сна, простуды, пищеварения и бодрости. Без ароматизаторов и красителей.</p>
+      <div class="hero-cta">
+        <a href="#catalog" class="btn">Смотреть сборы</a>
+        <a href="#picker" class="btn ghost">Подобрать под задачу</a>
+      </div>
+      <div class="badges">
+        <span><strong>18</strong>трав в ассортименте</span>
+        <span><strong>100%</strong>ручная фасовка</span>
+        <span><strong>1–2 дня</strong>доставка по городу</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg class="leaf-art" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Иллюстрация чашки травяного чая">
+        <circle cx="150" cy="150" r="140" stroke="#3A4530" stroke-width="1"/>
+        <path d="M90 150c0 40 30 65 60 65s60-25 60-65" stroke="#EFE9D6" stroke-width="6" stroke-linecap="round"/>
+        <path d="M90 150h120" stroke="#EFE9D6" stroke-width="6" stroke-linecap="round"/>
+        <path d="M210 150c18 0 30 12 30 27s-12 27-30 27" stroke="#EFE9D6" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M120 130c8-24 0-38-10-50" stroke="#9C6B30" stroke-width="5" stroke-linecap="round"/>
+        <path d="M150 130c4-28-4-42 4-58" stroke="#77896B" stroke-width="5" stroke-linecap="round"/>
+        <path d="M180 130c-2-22 6-34 0-48" stroke="#9C6B30" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="wrap section-head">
+    <div class="eyebrow">Почему травяной сбор, а не пакетик из супермаркета</div>
+    <h2>Собрано по назначению, а не по вкусу</h2>
+  </div>
+  <div class="wrap">
+    <div class="b-card">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v9m0 0c-4 0-7 3-7 7h14c0-4-3-7-7-7Z"/></svg>
+      <h3>Целые растения</h3>
+      <p>Листья и цветки, а не труха и пыль со дна пакетика — вкус и польза сохраняются дольше.</p>
+    </div>
+    <div class="b-card">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="16" height="13" rx="1"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+      <h3>Прозрачный состав</h3>
+      <p>На каждой упаковке — точный список трав и пропорции, без «натуральных ароматизаторов».</p>
+    </div>
+    <div class="b-card">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"/><path d="M12 8v4l3 2"/></svg>
+      <h3>Свежая фасовка</h3>
+      <p>Собираем сбор под заказ, а не храним готовым на складе месяцами.</p>
+    </div>
+    <div class="b-card">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+      <h3>Подбор под цель</h3>
+      <p>Каждый сбор решает конкретную задачу — сон, дыхание, пищеварение, тонус.</p>
+    </div>
+  </div>
+</section>
+
+<section id="picker">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Не знаете, с чего начать</div>
+      <h2>Подберите сбор по своему состоянию</h2>
+      <p>Выберите, что вас беспокоит, — покажем подходящий сбор из каталога.</p>
+    </div>
+    <div class="picker">
+      <div>
+        <label for="symptom">Что вас беспокоит?</label>
+        <select id="symptom">
+          <option value="">— выбрать —</option>
+          <option value="sleep">Плохо засыпаю, тревожно</option>
+          <option value="cold">Першит горло, начинается простуда</option>
+          <option value="stomach">Тяжесть после еды</option>
+          <option value="energy">Не хватает бодрости с утра</option>
+        </select>
+      </div>
+      <div class="picker-result empty" id="pickerResult">
+        <div class="r-name" id="pickerName">Сбор появится здесь</div>
+        <div class="r-desc" id="pickerDesc">Выберите вариант слева, и мы подскажем подходящий чай.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Каталог</div>
+      <h2>Четыре сбора для повседневных задач</h2>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Как это работает</div>
+      <h2>От заказа до чашки чая — четыре шага</h2>
+    </div>
+    <ol>
+      <li><h3>Выбираете сбор</h3><p>В каталоге или через подбор по симптому.</p></li>
+      <li><h3>Оформляете заказ</h3><p>Оставляете имя, телефон и адрес в форме внизу страницы.</p></li>
+      <li><h3>Мы фасуем вручную</h3><p>Взвешиваем и пакуем сбор в день заказа.</p></li>
+      <li><h3>Доставляем</h3><p>Курьером по городу за 1–2 дня, по стране — почтой.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Отзывы</div>
+      <h2>Что говорят покупатели</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <blockquote><p>Сбор «Успокой» реально помогает уснуть без привкуса аптечной пустырника-настойки. Беру уже третий раз.</p><cite>— Анна, Москва</cite></blockquote>
+    <blockquote><p>Понравилось, что на пачке написан точный состав в граммах, а не «травяная смесь».</p><cite>— Дмитрий, Химки</cite></blockquote>
+    <blockquote><p>Заказывала «Дыхание» при первых признаках простуды — доставили на следующий день.</p><cite>— Елена, Москва</cite></blockquote>
+  </div>
+</section>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div>
+      <h2>Оформите заказ или подпишитесь на новинки сборов</h2>
+      <p>Оставьте почту — пришлём сезонные сборы и скидку 10% на первый заказ.</p>
+      <form class="subscribe" id="subForm">
+        <input type="email" id="subEmail" placeholder="Ваш email" required aria-label="Email для подписки">
+        <button type="submit" class="btn">Подписаться</button>
+      </form>
+      <div class="sub-msg" id="subMsg"></div>
+    </div>
+    <div class="foot-contacts">
+      <div><strong>Аптечный сад</strong></div>
+      <div>Москва, Самотечная ул., 5</div>
+      <div>Пн–Сб, 10:00–20:00</div>
+      <div>+7 (495) 000-00-00</div>
+      <div>hello@aptechny-sad.example</div>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Аптечный сад. Все травы предназначены для заваривания, не являются лекарством.</span>
+    <span>Учебный проект — практика ПМ.09</span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="cartOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Корзина">
+    <button class="modal-close" id="cartClose" aria-label="Закрыть">×</button>
+
+    <div id="cartStep1">
+      <h2>Корзина</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total"><span>Итого</span><strong id="cartTotal">0 ₽</strong></div>
+      <button class="btn" id="toCheckoutBtn">Оформить заказ</button>
+    </div>
+
+    <div id="cartStep2" hidden>
+      <h2>Контактные данные</h2>
+      <form id="contactForm">
+        <label>Имя<input type="text" id="custName" required></label>
+        <label>Телефон<input type="tel" id="custPhone" placeholder="+7 900 000-00-00" required></label>
+        <label>Адрес доставки<input type="text" id="custAddress" required></label>
+        <button type="submit" class="btn">Продолжить к оплате</button>
+      </form>
+    </div>
+
+    <div id="cartStep3" hidden>
+      <h2>Способ оплаты</h2>
+      <button class="quick-pay" id="quickPayBtn" hidden></button>
+      <div class="pay-methods">
+        <button type="button" class="pay-method" id="methodSbp" data-method="sbp">СБП</button>
+        <button type="button" class="pay-method" id="methodCard" data-method="card">Банковская карта</button>
+      </div>
+
+      <div id="sbpBlock" hidden>
+        <p style="font-size:.9rem; color:var(--ink-soft);">Отсканируйте QR-код в приложении банка или переведите по номеру телефона продавца.</p>
+        <svg class="qr-fake" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR-код для оплаты (демо)">
+          <rect width="90" height="90" fill="#fff"/>
+          <g fill="#1E2B1A">
+            <rect x="4" y="4" width="22" height="22"/><rect x="10" y="10" width="10" height="10" fill="#fff"/>
+            <rect x="64" y="4" width="22" height="22"/><rect x="70" y="10" width="10" height="10" fill="#fff"/>
+            <rect x="4" y="64" width="22" height="22"/><rect x="10" y="70" width="10" height="10" fill="#fff"/>
+            <rect x="34" y="10" width="6" height="6"/><rect x="46" y="16" width="6" height="6"/><rect x="34" y="34" width="10" height="10"/>
+            <rect x="52" y="34" width="6" height="6"/><rect x="64" y="34" width="6" height="6"/><rect x="34" y="52" width="6" height="6"/>
+            <rect x="52" y="52" width="14" height="14"/><rect x="72" y="52" width="6" height="6"/><rect x="34" y="72" width="6" height="6"/>
+            <rect x="46" y="72" width="6" height="6"/><rect x="60" y="72" width="16" height="6"/>
+          </g>
+        </svg>
+        <button type="button" class="btn" id="sbpPayBtn" style="width:100%">Я оплатил(а)</button>
+      </div>
+
+      <form id="cardForm" hidden>
+        <label>Номер карты<input type="text" id="cardNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" required></label>
+        <div class="card-row">
+          <label>Срок<input type="text" id="cardExpiry" maxlength="5" placeholder="ММ/ГГ" required></label>
+          <label>CVC<input type="text" id="cardCvc" inputmode="numeric" maxlength="3" placeholder="123" required></label>
+        </div>
+        <label class="checkbox-row"><input type="checkbox" id="saveCard"> Зарегистрировать карту для быстрой оплаты в следующий раз</label>
+        <button type="submit" class="btn" style="width:100%">Оплатить</button>
+      </form>
+    </div>
+
+    <div id="cartStep4" hidden>
+      <h2>Заказ оформлен!</h2>
+      <p id="orderResult" style="color:var(--ink-soft); font-size:.92rem;"></p>
+      <button class="btn ghost" id="cartDoneBtn">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var products = [
+    {id:'sleep', name:'«Успокой»', tag:'для сна и покоя', desc:'Ромашка, мелисса, лаванда, пустырник — мягкий сбор перед сном.', price:390, color:'#8CA07D'},
+    {id:'energy', name:'«Бодрость»', tag:'для тонуса', desc:'Иван-чай, мята, элеутерококк — вместо утреннего кофе.', price:420, color:'#9C6B30'},
+    {id:'cold', name:'«Дыхание»', tag:'при простуде', desc:'Чабрец, шалфей, эвкалипт, липовый цвет — при першении в горле.', price:410, color:'#77896B'},
+    {id:'stomach', name:'«Пищеварение»', tag:'после еды', desc:'Фенхель, ромашка, мята, семена укропа — снимает тяжесть.', price:380, color:'#C79256'}
+  ];
+
+  var pickerMap = {
+    sleep:  {name:'Сбор «Успокой»', desc:'Ромашка, мелисса и лаванда помогают расслабиться перед сном.'},
+    cold:   {name:'Сбор «Дыхание»', desc:'Чабрец и шалфей смягчают горло при первых признаках простуды.'},
+    stomach:{name:'Сбор «Пищеварение»', desc:'Фенхель и мята снимают тяжесть после плотной еды.'},
+    energy: {name:'Сбор «Бодрость»', desc:'Иван-чай и элеутерококк дают ровный тонус без резкого возбуждения.'}
+  };
+
+  // рендер каталога через DOM API
+  var grid = document.getElementById('productGrid');
+  products.forEach(function(p){
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<div class="art" style="background:'+p.color+'22"><svg viewBox="0 0 24 24" fill="none" stroke="'+p.color+'" stroke-width="1.4"><path d="M12 3c-4 3-6 6-6 10a6 6 0 0 0 12 0c0-4-2-7-6-10Z"/></svg></div>'+
+      '<div class="card-body">'+
+        '<span class="tag">'+p.tag+'</span>'+
+        '<h3>'+p.name+'</h3>'+
+        '<p>'+p.desc+'</p>'+
+        '<div class="card-foot"><span class="price">'+p.price+' ₽</span>'+
+        '<button class="add-btn" data-id="'+p.id+'">В корзину</button></div>'+
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  // состояние корзины — храним в памяти и в localStorage (только для этого браузера)
+  var cart = {};
+  try{
+    var saved = localStorage.getItem('apt_sad_cart');
+    if(saved) cart = JSON.parse(saved);
+  }catch(e){}
+
+  function saveCart(){
+    try{ localStorage.setItem('apt_sad_cart', JSON.stringify(cart)); }catch(e){}
+  }
+  function updateCartCount(){
+    var total = Object.values(cart).reduce(function(a,b){return a+b;},0);
+    document.getElementById('cartCount').textContent = total;
+  }
+  updateCartCount();
+
+  grid.addEventListener('click', function(e){
+    var btn = e.target.closest('.add-btn');
+    if(!btn) return;
+    var id = btn.dataset.id;
+    cart[id] = (cart[id]||0)+1;
+    saveCart();
+    updateCartCount();
+    btn.textContent = 'Добавлено';
+    btn.classList.add('added');
+    setTimeout(function(){
+      btn.textContent = 'В корзину';
+      btn.classList.remove('added');
+    }, 1200);
+  });
+
+  // подбор сбора по симптому — управление DOM в ответ на событие
+  var select = document.getElementById('symptom');
+  var resultBox = document.getElementById('pickerResult');
+  var nameEl = document.getElementById('pickerName');
+  var descEl = document.getElementById('pickerDesc');
+  select.addEventListener('change', function(){
+    var v = select.value;
+    if(!v){
+      resultBox.classList.add('empty');
+      nameEl.textContent = 'Сбор появится здесь';
+      descEl.textContent = 'Выберите вариант слева, и мы подскажем подходящий чай.';
+      return;
+    }
+    var m = pickerMap[v];
+    resultBox.classList.remove('empty');
+    nameEl.textContent = m.name;
+    descEl.textContent = m.desc;
+  });
+
+  // форма подписки — имитация асинхронного запроса к серверу
+  var form = document.getElementById('subForm');
+  var msg = document.getElementById('subMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('button');
+    var email = document.getElementById('subEmail').value;
+    if(!email){ return; }
+    btn.disabled = true;
+    msg.textContent = 'Отправляем…';
+    setTimeout(function(){
+      msg.textContent = 'Готово! Скидка 10% придёт на ' + email + ' в течение пары минут.';
+      form.reset();
+      btn.disabled = false;
+    }, 900);
+  });
+
+  // ---------------- Корзина: просмотр, оформление заказа, оплата ----------------
+  var overlay = document.getElementById('cartOverlay');
+  var step1 = document.getElementById('cartStep1');
+  var step2 = document.getElementById('cartStep2');
+  var step3 = document.getElementById('cartStep3');
+  var step4 = document.getElementById('cartStep4');
+  var cartItemsBox = document.getElementById('cartItems');
+  var cartTotalEl = document.getElementById('cartTotal');
+  var customer = {};
+
+  function findProduct(id){
+    for(var i=0;i<products.length;i++){ if(products[i].id===id) return products[i]; }
+  }
+
+  function showStep(step){
+    [step1,step2,step3,step4].forEach(function(s){ s.hidden = (s!==step); });
+  }
+
+  function renderCart(){
+    cartItemsBox.innerHTML = '';
+    var ids = Object.keys(cart).filter(function(id){ return cart[id] > 0; });
+    var total = 0;
+    if(ids.length === 0){
+      cartItemsBox.innerHTML = '<p class="empty-note">Корзина пока пуста — выберите сбор в каталоге.</p>';
+    }
+    ids.forEach(function(id){
+      var p = findProduct(id);
+      var qty = cart[id];
+      total += p.price * qty;
+      var row = document.createElement('div');
+      row.className = 'cart-row';
+      row.innerHTML =
+        '<div><div class="ci-name">'+p.name+'</div><div class="ci-sub">'+p.price+' ₽ × '+qty+'</div></div>'+
+        '<div class="qty-ctrl">'+
+          '<button type="button" data-act="dec" data-id="'+id+'" aria-label="Меньше">−</button>'+
+          '<span>'+qty+'</span>'+
+          '<button type="button" data-act="inc" data-id="'+id+'" aria-label="Больше">+</button>'+
+        '</div>';
+      cartItemsBox.appendChild(row);
+    });
+    cartTotalEl.textContent = total + ' ₽';
+    document.getElementById('toCheckoutBtn').disabled = ids.length === 0;
+    return total;
+  }
+
+  cartItemsBox.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-act]');
+    if(!btn) return;
+    var id = btn.dataset.id;
+    if(btn.dataset.act === 'inc') cart[id] = (cart[id]||0) + 1;
+    if(btn.dataset.act === 'dec') cart[id] = Math.max(0, (cart[id]||0) - 1);
+    saveCart();
+    updateCartCount();
+    renderCart();
+  });
+
+  document.getElementById('cartBtn').addEventListener('click', function(){
+    showStep(step1);
+    renderCart();
+    overlay.hidden = false;
+  });
+
+  function closeCart(){
+    overlay.hidden = true;
+  }
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeCart(); });
+  document.getElementById('cartDoneBtn').addEventListener('click', closeCart);
+
+  document.getElementById('toCheckoutBtn').addEventListener('click', function(){
+    showStep(step2);
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    customer.name = document.getElementById('custName').value;
+    customer.phone = document.getElementById('custPhone').value;
+    customer.address = document.getElementById('custAddress').value;
+    openPaymentStep();
+  });
+
+  // сохранённая ("зарегистрированная") карта — per-виджер, только в этом браузере
+  function getSavedCard(){
+    try{ return JSON.parse(localStorage.getItem('apt_sad_card') || 'null'); }catch(e){ return null; }
+  }
+
+  function openPaymentStep(){
+    showStep(step3);
+    document.getElementById('sbpBlock').hidden = true;
+    document.getElementById('cardForm').hidden = true;
+    methodSbp.classList.remove('active');
+    methodCard.classList.remove('active');
+    var saved = getSavedCard();
+    var quickBtn = document.getElementById('quickPayBtn');
+    if(saved){
+      quickBtn.hidden = false;
+      quickBtn.textContent = 'Оплатить сохранённой картой •••• ' + saved.last4;
+    } else {
+      quickBtn.hidden = true;
+    }
+  }
+
+  document.getElementById('quickPayBtn').addEventListener('click', function(){
+    finishOrder('картой •••• ' + getSavedCard().last4 + ' (сохранённая карта)');
+  });
+
+  var methodSbp = document.getElementById('methodSbp');
+  var methodCard = document.getElementById('methodCard');
+  methodSbp.addEventListener('click', function(){
+    methodSbp.classList.add('active'); methodCard.classList.remove('active');
+    document.getElementById('sbpBlock').hidden = false;
+    document.getElementById('cardForm').hidden = true;
+  });
+  methodCard.addEventListener('click', function(){
+    methodCard.classList.add('active'); methodSbp.classList.remove('active');
+    document.getElementById('cardForm').hidden = false;
+    document.getElementById('sbpBlock').hidden = true;
+  });
+
+  document.getElementById('sbpPayBtn').addEventListener('click', function(){
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Проверяем оплату…';
+    setTimeout(function(){
+      finishOrder('через СБП');
+    }, 1100);
+  });
+
+  document.getElementById('cardNumber').addEventListener('input', function(){
+    var digits = this.value.replace(/\D/g,'').slice(0,16);
+    this.value = digits.replace(/(.{4})/g,'$1 ').trim();
+  });
+
+  document.getElementById('cardForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = this.querySelector('button');
+    var number = document.getElementById('cardNumber').value.replace(/\s/g,'');
+    var last4 = number.slice(-4) || '0000';
+    var save = document.getElementById('saveCard').checked;
+    btn.disabled = true;
+    btn.textContent = 'Обрабатываем платёж…';
+    setTimeout(function(){
+      if(save){
+        try{ localStorage.setItem('apt_sad_card', JSON.stringify({last4:last4})); }catch(err){}
+      }
+      finishOrder('картой •••• ' + last4 + (save ? ' (карта зарегистрирована для следующих покупок)' : ''));
+      btn.disabled = false;
+      btn.textContent = 'Оплатить';
+    }, 1100);
+  });
+
+  function finishOrder(methodLabel){
+    var orderNo = 'АС-' + Math.floor(10000 + Math.random()*89999);
+    var total = renderCart();
+    document.getElementById('orderResult').textContent =
+      'Заказ №' + orderNo + ' на сумму ' + total + ' ₽ оплачен ' + methodLabel + '. ' +
+      'Мы пришлём подтверждение на телефон ' + (customer.phone || '') + ' и доставим по адресу «' + (customer.address || '') + '».';
+    cart = {};
+    saveCart();
+    updateCartCount();
+    showStep(step4);
+  }
+})();
+</script>
+</body>
+</html>
